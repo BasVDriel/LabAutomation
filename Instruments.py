@@ -24,6 +24,8 @@ class Scope(Instrument):
         sleep(sd)
         self.inst.write("MEASUREMENT:GATING OFF")        #measures everywhere
         
+    def setVScale(self, ch, volt): 
+        self.inst.write(ch + ":SCALE " + str(volt))            #set vertical scale
 
     def setM(self, source, m_type):
         self.inst.write("MEASUREMENT:IMMED:SOURCE1 " + source)    #specifies measurment 1 source as ch2
@@ -31,8 +33,8 @@ class Scope(Instrument):
 
     def readM(self):
         self.inst.write("MEASUREMENT:IMMED:VALUE?")         #9.9100E+37 means NaN not a number aka value not available
-        sleep(sd)
-        print(float(self.inst.read()))
+        sleep(md)
+        return float(self.inst.read())
 
 class Funct(Instrument):
     def __init__(self, ID):
