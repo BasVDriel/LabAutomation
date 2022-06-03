@@ -11,4 +11,5 @@ md = 0.5            #medium delay
 ld = 1              #long delay
 fLow = 10           # only integer
 fHigh = 100000      # only integer
-samples = 60       #only integer
+samples = 80       #only integer
+amplitude = 10   #amplitude for function gen
