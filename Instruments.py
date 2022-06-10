@@ -17,6 +17,12 @@ class Instrument:
     def wait(self):
         self.inst.write("*OPC?")
 
+    def busy(self):
+        self.inst.write("BUSY?")
+        busy = self.inst.read() 
+        print(busy)
+            
+
 class Scope(Instrument):
     def __init__(self, ID):
         Instrument.__init__(self, ID)
@@ -36,6 +42,7 @@ class Scope(Instrument):
     def setVScale(self, ch, volt): 
         self.inst.write(ch + ":SCALE " + str(volt))            #set vertical scale
         self.wait()
+        sleep(sd/4)
 
     def setHScale(self, time):
         self.inst.write("HORIZONTAL:SCALE " + str(time))
@@ -48,9 +55,15 @@ class Scope(Instrument):
         self.wait()
 
     def readM(self, freq):
+        self.inst.write("ACQUIRE:MODE SAMPLE")
+        self.wait()
+        self.inst.write("ACQUIRE:STATE ON")
+        self.wait()
         self.inst.write("MEASUREMENT:IMMED:VALUE?")         #9.9100E+37 means NaN not a number aka value not available
-        sleep(sd*5*(1/freq))
-        return float(self.inst.read())
+        sleep(ld*20*(1/freq))
+        result = float(self.inst.read())
+        self.inst.write("ACQUIRE:STATE OFF")
+        return result
 
     def singleTrigger(self):
         self.inst.write("FPAnel:PRESS SING")    
@@ -60,7 +73,7 @@ class Scope(Instrument):
 class Funct(Instrument):
     def __init__(self, ID):
         Instrument.__init__(self, ID)
-        sleep
+        sleep(sd)
         self.inst.write("OUTP1 ON")
         sleep(sd)
                                              #make sure to delay plenty for things to settle
