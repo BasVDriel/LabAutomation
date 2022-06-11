@@ -12,7 +12,7 @@ def bodePlotInit(freq, magnitude, phase):
     phs = np.array(phase)
     plt.ion()
     fig = plt.subplot(2, 1, 1)
-    plt.semilogx(freq, 20*np.log(mag/(2*amplitude)))
+    plt.semilogx(freq, 20*np.log10(mag/(2*amplitude)))
     plt.grid()
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Gain (dB)")
