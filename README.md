@@ -4,11 +4,11 @@ An experiment for DIGOND at HHS university to automate various lab equipment wit
 # User guide
 - Create a python environment with matplotlib, numpy and pyvisa. I used python 3.10.4 and anaconda.
 - Git this repository
-- With your environment enabled execute the following in the python console:
-'''console
+- With your environment enabled execute the following commands in the python console:
+```{python}
   import pyvisa
   rm = pyvisa.ResourceManager()
   print(rm.list_resources())
-'''
-- Now adjust the py.settings file as you wish
+```
+- Now adjust the settings.py file as you wish
 - Run bode.py
